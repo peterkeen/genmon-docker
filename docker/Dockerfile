@@ -17,11 +17,11 @@ RUN sudo pip3 install --upgrade pip
 RUN git clone https://github.com/jgyates/genmon.git
 WORKDIR /genmon
 
-# Tells genmon to user Serial over TCP & set a dummuy IP (if this these paramenters are not set, genmon will refuse to start)
+# Tells genmon to use Serial over TCP & set a dummuy IP (if these paramenters are not set, genmon will refuse to start)
 RUN sed -i "s|use_serial_tcp = False|use_serial_tcp = True|g" ./conf/genmon.conf && sed -i "s|serial_tcp_address =|serial_tcp_address = 192.168.1.1|g" ./conf/genmon.conf 
 
 # Set Serial port to 6638 as per Genmon-ESP32-Serial-Bridge default option (not really required, convinience only)
-RUN sed -i "s|serial_tcp_port = 8899|serial_tcp_port = 6638|g" ./conf/genmon.conf ./conf/genmon.conf 
+RUN sed -i "s|serial_tcp_port = 8899|serial_tcp_port = 6638|g" ./conf/genmon.conf
 
 # Let genmon's install script handle the rest (for some reason the default config files are not copied. They will be copied on first start of container)
 RUN sudo chmod 775 ./genmonmaint.sh && bash ./genmonmaint.sh -i -n -p 3 -s
@@ -32,7 +32,7 @@ RUN pip install spidev
 # Cleanup
 RUN apt-get autoremove -y && apt-get clean
 
-# Expose these directories
+# Expose these directories to host
 VOLUME /etc/genmon
 VOLUME /var/log
 
