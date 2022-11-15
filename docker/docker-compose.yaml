@@ -1,0 +1,25 @@
+# https://github.com/JMVS/genmon-docker
+# rev 00
+# 2022/11/15
+# Uses genmon_ubuntu:latest image file created using Dockerfile
+version: '3'
+networks:
+  internal:
+    driver: bridge
+services:
+  genmon:
+    container_name: genmon
+    image: genmon_ubuntu:latest
+    environment:
+      - PUID=1024
+      - PGID=100
+      - TZ=America/Argentina/Buenos_Aires
+    volumes:
+      - /etc/genmon/log:/var/log
+      - /etc/genmon/config:/etc/genmon
+    networks:
+      - internal
+    ports:
+      - 10443:443
+      - 10800:8000
+    restart: unless-stopped
