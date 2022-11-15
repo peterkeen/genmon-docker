@@ -1,6 +1,6 @@
 # Image name: genmon_ubuntu:latest
 # https://github.com/JMVS/genmon-docker
-# rev 00
+# rev 01
 # 2022/11/15
 
 # Base image
