@@ -50,6 +50,27 @@ views:
               -%} {%- if 'off - ready' in current -%} blue {%- elif 'running' in
               current -%} green {%- elif 'stopped' in current -%} red {%- else
               -%} yellow {%- endif -%}
+            tap_action:
+              action: call-service
+              service: mqtt.publish
+              data:
+                topic: generator/command
+                payload: setremote=stop
+              target: {}
+            double_tap_action:
+              action: call-service
+              service: mqtt.publish
+              data:
+                payload: setremote=start
+                topic: generator/command
+              target: {}
+            hold_action:
+              action: call-service
+              service: mqtt.publish
+              data:
+                topic: generator/command
+                payload: setremote=startandtransfer
+              target: {}
       - type: vertical-stack
         cards:
           - type: horizontal-stack
@@ -62,7 +83,7 @@ views:
                 segments:
                   - from: 0
                     color: var(--error-color)
-                  - from: 210
+                  - from: 205
                     color: var(--warning-color)
                   - from: 220
                     color: var(--success-color)
@@ -93,13 +114,13 @@ views:
                 segments:
                   - from: 0
                     color: var(--error-color)
-                  - from: 217
+                  - from: 205
                     color: var(--warning-color)
-                  - from: 228
+                  - from: 220
                     color: var(--success-color)
-                  - from: 250
+                  - from: 240
                     color: var(--warning-color)
-                  - from: 260
+                  - from: 255
                     color: var(--error-color)
               - type: gauge
                 entity: sensor.generator_output_power
@@ -120,13 +141,13 @@ views:
                 segments:
                   - from: 0
                     color: var(--error-color)
-                  - from: 57
+                  - from: 46
                     color: var(--warning-color)
-                  - from: 59
+                  - from: 48
                     color: var(--success-color)
-                  - from: 61
+                  - from: 50
                     color: var(--warning-color)
-                  - from: 63
+                  - from: 53
                     color: var(--error-color)
                 unit: Hz
               - type: gauge
