@@ -41,4 +41,4 @@ EXPOSE 443
 EXPOSE 8000
 
 # Run this command on container start
-CMD bash -c "/genmon/startgenmon.sh start && tail -f /dev/null"
+CMD bash -c "/genmon/startgenmon.sh start && tail -f /var/log/genmon.log"
