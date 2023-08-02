@@ -6,9 +6,11 @@
 # Base image
 FROM ubuntu:latest
 
+ENV TZ="America/Detroit"
+
 # Update & install dependencies
 RUN apt-get -y update && apt-get -y upgrade
-RUN DEBIAN_FRONTEND="noninteractive" TZ="America/Argentina/Buenos_Aires" apt-get install -yq --no-install-recommends sudo cron curl nano git build-essential libssl-dev libffi-dev python3-dev tzdata python3-pip
+RUN DEBIAN_FRONTEND="noninteractive" apt-get install -yq --no-install-recommends sudo cron curl nano git build-essential libssl-dev libffi-dev python3-dev tzdata python3-pip
 
 # Upgrade PIP
 RUN sudo pip3 install --upgrade pip
