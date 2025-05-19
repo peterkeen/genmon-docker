@@ -13,7 +13,7 @@ RUN apt-get -y update && apt-get -y upgrade
 RUN DEBIAN_FRONTEND="noninteractive" apt-get install -yq --no-install-recommends sudo cron curl nano git build-essential libssl-dev libffi-dev python3-dev python3-full tzdata python3-pip
 
 # Upgrade PIP
-RUN sudo pip3 install --upgrade pip
+RUN sudo pip3 install --upgrade --break-system-packages pip 
 
 # Clone genmon's repository & set working directory
 RUN git clone https://github.com/jgyates/genmon.git
@@ -29,7 +29,7 @@ RUN sed -i "s|serial_tcp_port = 8899|serial_tcp_port = 6638|g" ./conf/genmon.con
 RUN sudo chmod 775 ./genmonmaint.sh && bash ./genmonmaint.sh -i -n -p 3 -s
 
 # Install another dependency not handled by install script but that genmon complaints on first run
-RUN pip install spidev
+RUN pip install --break-system-packages spidev
 
 # Cleanup
 RUN apt-get autoremove -y && apt-get clean
